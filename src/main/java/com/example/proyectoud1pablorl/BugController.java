@@ -48,7 +48,7 @@ public class BugController implements Initializable {
                 ids++;
                 responseCode = conn.getResponseCode();
 
-                if (responseCode !=200) {
+                if (responseCode != 200) {
                     System.out.println("done all bugs");
                 } else {
                     Scanner sc = new Scanner(ur.openStream());

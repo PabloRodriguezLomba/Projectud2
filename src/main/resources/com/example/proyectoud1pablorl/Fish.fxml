@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FishController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FishController">
    <children>
-      <Text layoutX="369.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fish">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
+      <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
+         <children>
+            <ImageView fx:id="exit" fitHeight="24.0" fitWidth="24.0" layoutX="756.0" layoutY="10.0" onMouseClicked="#end" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/button.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="7.0" onMouseClicked="#switchToIntro" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/arrow.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="id" />
+          <TableColumn prefWidth="75.0" text="Name" />
+            <TableColumn prefWidth="75.0" text="shadow" />
+            <TableColumn prefWidth="75.0" text="price" />
+            <TableColumn prefWidth="75.0" text="price-cj" />
+            <TableColumn prefWidth="224.0" text="catch-phrase" />
+        </columns>
+      </TableView>
+      <Text layoutX="60.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all fish" />
+      <Button layoutX="60.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Get" />
+      <Text layoutX="53.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get fish by Id" />
+      <Button layoutX="54.0" layoutY="376.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Get" />
+      <TextField layoutX="54.0" layoutY="345.0" prefHeight="25.0" prefWidth="70.0" />
    </children>
 </AnchorPane>

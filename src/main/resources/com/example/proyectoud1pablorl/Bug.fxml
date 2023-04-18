@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
    <children>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
@@ -23,14 +25,19 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView fx:id="tableBug" layoutX="293.0" layoutY="71.0" prefHeight="465.0" prefWidth="465.0">
+      <TableView fx:id="tableBug" layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Id" />
           <TableColumn prefWidth="75.0" text="Name" />
             <TableColumn prefWidth="75.0" text="Price" />
-            <TableColumn prefWidth="75.0" text="Price-flick" />
-            <TableColumn prefWidth="164.0" text="Catch-Frase" />
+            <TableColumn prefWidth="78.0" text="Price-flick" />
+            <TableColumn prefWidth="296.0" text="Catch-Phrase" />
         </columns>
       </TableView>
+      <Button layoutX="60.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="All" />
+      <Text layoutX="59.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all bugs" wrappingWidth="74.0" />
+      <Text layoutX="55.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get a bug by id" />
+      <TextField layoutX="55.0" layoutY="389.0" prefHeight="25.0" prefWidth="82.0" />
+      <Button layoutX="55.0" layoutY="423.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Get" />
    </children>
 </AnchorPane>
