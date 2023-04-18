@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.proyectoud1pablorl.BugController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
+   <children>
+      <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
+         <children>
+            <ImageView fx:id="exit" fitHeight="24.0" fitWidth="24.0" layoutX="756.0" layoutY="10.0" onMouseClicked="#end" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/button.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="7.0" onMouseClicked="#switchToIntro" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/arrow.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tableBug" layoutX="293.0" layoutY="71.0" prefHeight="465.0" prefWidth="465.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Id" />
+          <TableColumn prefWidth="75.0" text="Name" />
+            <TableColumn prefWidth="75.0" text="Price" />
+            <TableColumn prefWidth="75.0" text="Price-flick" />
+            <TableColumn prefWidth="164.0" text="Catch-Frase" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>
