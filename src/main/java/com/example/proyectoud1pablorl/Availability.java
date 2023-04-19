@@ -3,16 +3,16 @@ package com.example.proyectoud1pablorl;
 import java.util.List;
 
 public class Availability{
-	public boolean isAllYear;
-	public boolean isAllDay;
-	public List<Integer> monthArrayNorthern;
-	public String monthSouthern;
-	public List<Integer> monthArraySouthern;
-	public String monthNorthern;
-	public String location;
-	public String time;
-	public List<Integer> timeArray;
-	public String rarity;
+	private boolean isAllYear;
+	private boolean isAllDay;
+	private List<Integer> monthArrayNorthern;
+	private String monthSouthern;
+	private List<Integer> monthArraySouthern;
+	private String monthNorthern;
+	private String location;
+	private String time;
+	private List<Integer> timeArray;
+	private String rarity;
 
 	public boolean isIsAllYear(){
 		return isAllYear;

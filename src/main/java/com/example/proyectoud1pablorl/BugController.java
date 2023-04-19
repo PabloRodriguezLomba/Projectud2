@@ -1,6 +1,7 @@
 package com.example.proyectoud1pablorl;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -37,15 +38,21 @@ public class BugController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+    }
+
+
+    public void getAllBug(Event event) {
         try {
             int responseCode;
-            int ids = 1;
+
             do {
-                URL ur = new URL("http://acnhapi.com/v1/bugs/" + ids);
+                URL ur = new URL("http://acnhapi.com/v1a/bugs/");
                 HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
-                ids++;
+
                 responseCode = conn.getResponseCode();
 
                 if (responseCode != 200) {
@@ -58,7 +65,7 @@ public class BugController implements Initializable {
                                 .FAIL_ON_UNKNOWN_PROPERTIES);
                         String obs = sc.nextLine();
                         Bug bug = objectMapper.readValue(obs, Bug.class);
-                        bugArray.add(bug);
+
                     }
                 }
             } while (responseCode == 200);
@@ -73,6 +80,7 @@ public class BugController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
+
+
 }
