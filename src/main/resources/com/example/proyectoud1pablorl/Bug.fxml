@@ -27,17 +27,17 @@
       </AnchorPane>
       <TableView fx:id="tableBug" layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Id" />
-          <TableColumn prefWidth="75.0" text="Name" />
-            <TableColumn prefWidth="75.0" text="Price" />
-            <TableColumn prefWidth="78.0" text="Price-flick" />
-            <TableColumn prefWidth="296.0" text="Catch-Phrase" />
+          <TableColumn fx:id="id" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="Price" prefWidth="75.0" text="Price" />
+            <TableColumn fx:id="priceFlick" prefWidth="78.0" text="Price-flick" />
+            <TableColumn fx:id="catchPhrase" prefWidth="296.0" text="Catch-Phrase" />
         </columns>
       </TableView>
-      <Button layoutX="60.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="All" />
+      <Button fx:id="btnAll" layoutX="60.0" layoutY="162.0" mnemonicParsing="false" onAction="#getAllBug" prefHeight="25.0" prefWidth="74.0" text="All" />
       <Text layoutX="59.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all bugs" wrappingWidth="74.0" />
       <Text layoutX="55.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get a bug by id" />
-      <TextField layoutX="55.0" layoutY="389.0" prefHeight="25.0" prefWidth="82.0" />
-      <Button layoutX="55.0" layoutY="423.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Get" />
+      <TextField fx:id="textForBug" layoutX="55.0" layoutY="389.0" prefHeight="25.0" prefWidth="82.0" />
+      <Button layoutX="55.0" layoutY="423.0" mnemonicParsing="false" onAction="#getBugById" prefHeight="25.0" prefWidth="82.0" text="Get" />
    </children>
 </AnchorPane>

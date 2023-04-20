@@ -1,16 +1,25 @@
 package com.example.proyectoud1pablorl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BugItem{
-	private int priceFlick;
-	private String catchPhrase;
-	private String imageUri;
-	private int price;
-	private Name name;
-	private String museumPhrase;
-	private int id;
-	private String fileName;
-	private Availability availability;
-	private String iconUri;
+
+	@JsonProperty("price-flick")
+	public int priceFlick;
+	@JsonProperty("catch-phrase")
+	public String catchPhrase;
+	public String imageUri;
+	public int price;
+
+	public Name name;
+	@JsonProperty("museum-phrase")
+	public String museumPhrase;
+	public int id;
+	@JsonProperty("file-name")
+	public String fileName;
+
+	public Availability availability;
+	public String iconUri;
 
 	public int getPriceFlick(){
 		return priceFlick;

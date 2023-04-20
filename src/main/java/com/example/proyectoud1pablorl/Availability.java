@@ -1,18 +1,25 @@
 package com.example.proyectoud1pablorl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Availability{
-	private boolean isAllYear;
-	private boolean isAllDay;
-	private List<Integer> monthArrayNorthern;
-	private String monthSouthern;
-	private List<Integer> monthArraySouthern;
-	private String monthNorthern;
-	private String location;
-	private String time;
-	private List<Integer> timeArray;
-	private String rarity;
+	public boolean isAllYear;
+	public boolean isAllDay;
+	@JsonProperty("month-array-northern")
+	public List<Integer> monthArrayNorthern;
+	@JsonProperty("month-southern")
+	public String monthSouthern;
+	@JsonProperty("month-array-southern")
+	public List<Integer> monthArraySouthern;
+	@JsonProperty("month-northern")
+	public String monthNorthern;
+	public String location;
+	public String time;
+	@JsonProperty("time-array")
+	public List<Integer> timeArray;
+	public String rarity;
 
 	public boolean isIsAllYear(){
 		return isAllYear;
