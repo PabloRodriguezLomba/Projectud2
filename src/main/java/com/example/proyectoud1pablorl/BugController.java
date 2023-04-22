@@ -14,11 +14,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.stage.Window;
+
+import java.io.File;
 import java.net.*;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -30,6 +36,8 @@ public class BugController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    FileChooser fileChooser = new FileChooser();
 
     @FXML
     private TableView<Bug> tableBug;
@@ -61,6 +69,8 @@ public class BugController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fileChooser.setInitialDirectory(new File("."));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
         id.setCellValueFactory(new PropertyValueFactory<>("i"));
         Name.setCellValueFactory(new PropertyValueFactory<>("Nam"));
         Price.setCellValueFactory(new PropertyValueFactory<>("Pric"));
@@ -96,6 +106,7 @@ public class BugController implements Initializable {
                     }
                 }
 
+
                 for (int i = 0; i < bug.length;i++) {
 
 
@@ -103,6 +114,7 @@ public class BugController implements Initializable {
 
 
                 }
+                tableBug.getItems().clear();
                 tableBug.getItems().addAll(bu);
 
 
@@ -140,7 +152,8 @@ public class BugController implements Initializable {
 
                     String obs = sc.nextLine();
                     BugItem bug = objectMapper.readValue(obs, BugItem.class);
-                    System.out.println(bug.fileName);
+                    tableBug.getItems().clear();
+                    tableBug.getItems().add(new Bug(bug.id,bug.fileName,bug.price,bug.priceFlick,bug.catchPhrase));
 
                 }
             }
@@ -157,4 +170,62 @@ public class BugController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public void saveFile(){
+
+        Window stage = tableBug.getScene().getWindow();
+        fileChooser.setTitle("Save Dialog");
+        fileChooser.setInitialFileName("Bugs");
+        try {
+            File file = fileChooser.showSaveDialog(stage);
+            fileChooser.setInitialDirectory(file.getParentFile());
+            if (file != null) {
+
+                file.createNewFile();
+
+                if (tableBug.getItems().size() > 1) {
+
+
+                    try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
+
+                        URL ur = new URL("http://acnhapi.com/v1a/bugs/");
+                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
+                        conn.setRequestMethod("GET");
+                        conn.connect();
+                        Scanner sc = new Scanner(ur.openStream());
+                        while (sc.hasNext()) {
+                            fil.write(sc.nextLine());
+                        }
+
+                    }
+                } else if (tableBug.getItems().size() == 1) {
+                    try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
+
+                        int id = tableBug.getItems().get(0).getI();
+                        URL ur = new URL("http://acnhapi.com/v1/bugs/" + id);
+                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
+                        conn.setRequestMethod("GET");
+                        conn.connect();
+
+                        Scanner sc = new Scanner(ur.openStream());
+                        while (sc.hasNext()) {
+
+                            fil.write(sc.nextLine());
+
+
+                        }
+
+                    }
+                }
+
+            }
+
+        } catch (Exception ox) {
+
+        }
+
+    }
+
+
+
 }

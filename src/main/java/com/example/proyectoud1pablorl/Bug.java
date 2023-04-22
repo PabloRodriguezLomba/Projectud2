@@ -20,4 +20,65 @@ public class Bug{
 		Flick = new SimpleIntegerProperty(priceFlick);
 		Catch = new SimpleStringProperty(catchPhrase);
 	}
+
+
+	public int getI() {
+		return i.get();
+	}
+
+	public SimpleIntegerProperty iProperty() {
+		return i;
+	}
+
+	public void setI(int i) {
+		this.i.set(i);
+	}
+
+	public String getNam() {
+		return Nam.get();
+	}
+
+	public SimpleStringProperty namProperty() {
+		return Nam;
+	}
+
+	public void setNam(String nam) {
+		this.Nam.set(nam);
+	}
+
+	public int getPric() {
+		return Pric.get();
+	}
+
+	public SimpleIntegerProperty pricProperty() {
+		return Pric;
+	}
+
+	public void setPric(int pric) {
+		this.Pric.set(pric);
+	}
+
+	public int getFlick() {
+		return Flick.get();
+	}
+
+	public SimpleIntegerProperty flickProperty() {
+		return Flick;
+	}
+
+	public void setFlick(int flick) {
+		this.Flick.set(flick);
+	}
+
+	public String getCatch() {
+		return Catch.get();
+	}
+
+	public SimpleStringProperty catchProperty() {
+		return Catch;
+	}
+
+	public void setCatch(String aCatch) {
+		this.Catch.set(aCatch);
+	}
 }

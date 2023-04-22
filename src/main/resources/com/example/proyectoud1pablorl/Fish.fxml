@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FishController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FishController">
    <children>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
@@ -23,22 +23,27 @@
                   <Image url="@../../../img/arrow.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="back1" fitHeight="30.0" fitWidth="30.0" layoutX="75.0" layoutY="7.0" onMouseClicked="#saveFile" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="75.0">
+               <image>
+                  <Image url="@../../../img/export.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <TableView layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
+      <TableView fx:id="TableFish" layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="id" />
-          <TableColumn prefWidth="75.0" text="Name" />
-            <TableColumn prefWidth="75.0" text="shadow" />
-            <TableColumn prefWidth="75.0" text="price" />
-            <TableColumn prefWidth="75.0" text="price-cj" />
-            <TableColumn prefWidth="224.0" text="catch-phrase" />
+          <TableColumn fx:id="idfish" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="fishname" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="fishshadow" prefWidth="75.0" text="shadow" />
+            <TableColumn fx:id="fishprice" prefWidth="75.0" text="price" />
+            <TableColumn fx:id="fishpricecj" prefWidth="75.0" text="price-cj" />
+            <TableColumn fx:id="fishcatch" prefWidth="224.0" text="catch-phrase" />
         </columns>
       </TableView>
       <Text layoutX="60.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all fish" />
-      <Button layoutX="60.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Get" />
+      <Button fx:id="Allfish" layoutX="60.0" layoutY="215.0" mnemonicParsing="false" onAction="#getAllFish" prefHeight="25.0" prefWidth="56.0" text="Get" />
       <Text layoutX="53.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get fish by Id" />
-      <Button layoutX="54.0" layoutY="376.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Get" />
-      <TextField layoutX="54.0" layoutY="345.0" prefHeight="25.0" prefWidth="70.0" />
+      <Button fx:id="onefish" layoutX="54.0" layoutY="376.0" mnemonicParsing="false" onAction="#getOneFish" prefHeight="25.0" prefWidth="70.0" text="Get" />
+      <TextField fx:id="textfish" layoutX="54.0" layoutY="345.0" prefHeight="25.0" prefWidth="70.0" />
    </children>
 </AnchorPane>

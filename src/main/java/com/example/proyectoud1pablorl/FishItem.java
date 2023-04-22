@@ -1,17 +1,23 @@
 package com.example.proyectoud1pablorl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FishItem{
-	private String catchPhrase;
-	private int priceCj;
-	private String shadow;
-	private String imageUri;
-	private int price;
-	private Name name;
-	private String museumPhrase;
-	private int id;
-	private String fileName;
-	private Availability availability;
-	private String iconUri;
+	@JsonProperty("catch-phrase")
+	public String catchPhrase;
+	@JsonProperty("price-cj")
+	public int priceCj;
+	public String shadow;
+	public String imageUri;
+	public int price;
+	public Name name;
+	@JsonProperty("museum-phrase")
+	public String museumPhrase;
+	public int id;
+	@JsonProperty("file-name")
+	public String fileName;
+	public Availability availability;
+	public String iconUri;
 
 	public String getCatchPhrase(){
 		return catchPhrase;

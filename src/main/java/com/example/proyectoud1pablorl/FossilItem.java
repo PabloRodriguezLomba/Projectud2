@@ -1,12 +1,17 @@
 package com.example.proyectoud1pablorl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FossilItem{
-	private String imageUri;
-	private int price;
-	private Name name;
-	private String museumPhrase;
-	private String partOf;
-	private String fileName;
+	public String imageUri;
+	public int price;
+	public Name name;
+	@JsonProperty("museum-phrase")
+	public String museumPhrase;
+	@JsonProperty("part-of")
+	public String partOf;
+	@JsonProperty("file-name")
+	public String fileName;
 
 	public String getImageUri(){
 		return imageUri;

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -27,7 +28,7 @@ public class HelloController  implements Initializable {
     private Scene scene;
     private Parent root;
 
-
+    FileChooser fileChooser = new FileChooser();
 
     @FXML
     private AnchorPane pane1,paneOptions;
@@ -39,6 +40,8 @@ public class HelloController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         exit.setOnMouseClicked(mouseEvent -> {
             System.exit(0);
         });

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
    <children>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
@@ -23,6 +23,11 @@
                   <Image url="@../../../img/arrow.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="back1" fitHeight="30.0" fitWidth="30.0" layoutX="76.0" layoutY="7.0" onMouseClicked="#saveFile" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="76.0">
+               <image>
+                  <Image url="@../../../img/export.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <TableView fx:id="tableBug" layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
@@ -34,10 +39,10 @@
             <TableColumn fx:id="catchPhrase" prefWidth="296.0" text="Catch-Phrase" />
         </columns>
       </TableView>
-      <Button fx:id="btnAll" layoutX="60.0" layoutY="162.0" mnemonicParsing="false" onAction="#getAllBug" prefHeight="25.0" prefWidth="74.0" text="All" />
-      <Text layoutX="59.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all bugs" wrappingWidth="74.0" />
-      <Text layoutX="55.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get a bug by id" />
-      <TextField fx:id="textForBug" layoutX="55.0" layoutY="389.0" prefHeight="25.0" prefWidth="82.0" />
-      <Button layoutX="55.0" layoutY="423.0" mnemonicParsing="false" onAction="#getBugById" prefHeight="25.0" prefWidth="82.0" text="Get" />
+      <Button fx:id="btnAll" layoutX="60.0" layoutY="190.0" mnemonicParsing="false" onAction="#getAllBug" prefHeight="25.0" prefWidth="74.0" text="All" />
+      <Text layoutX="59.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all bugs" wrappingWidth="74.0" />
+      <Text layoutX="56.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get a bug by id" />
+      <Button layoutX="56.0" layoutY="342.0" mnemonicParsing="false" onAction="#getBugById" prefHeight="25.0" prefWidth="82.0" text="Get" />
+      <TextField fx:id="textForBug" layoutX="53.0" layoutY="309.0" prefHeight="25.0" prefWidth="90.0" />
    </children>
 </AnchorPane>

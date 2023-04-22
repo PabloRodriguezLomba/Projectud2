@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FossilController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.FossilController">
    <children>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
@@ -24,19 +23,24 @@
                   <Image url="@../../../img/arrow.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="back1" fitHeight="30.0" fitWidth="30.0" layoutX="78.0" layoutY="7.0" onMouseClicked="#saveFile" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="76.0">
+               <image>
+                  <Image url="@../../../img/export.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <TableView layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
+      <TableView fx:id="TableFossil" layoutX="180.0" layoutY="52.0" prefHeight="501.0" prefWidth="600.0">
          <columns>
-            <TableColumn prefWidth="178.0" text="Name" />
-            <TableColumn prefWidth="71.0" text="Price" />
-            <TableColumn prefWidth="350.0" text="Museum-phrase" />
+            <TableColumn fx:id="FossilName" prefWidth="178.0" text="Name" />
+            <TableColumn fx:id="FossilPrice" prefWidth="71.0" text="Price" />
+            <TableColumn fx:id="FossilMuseum" prefWidth="350.0" text="Museum-phrase" />
          </columns>
       </TableView>
       <Text layoutX="51.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all fossils" />
-      <Button layoutX="51.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Get" />
+      <Button layoutX="51.0" layoutY="112.0" mnemonicParsing="false" onAction="#getAllFossil" prefHeight="25.0" prefWidth="69.0" text="Get" />
       <Text layoutX="35.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get fossil by Name" />
-      <Button layoutX="36.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Get" />
-      <TextField layoutX="36.0" layoutY="336.0" prefHeight="25.0" prefWidth="100.0" />
+      <Button layoutX="36.0" layoutY="367.0" mnemonicParsing="false" onAction="#getOneFossil" prefHeight="25.0" prefWidth="100.0" text="Get" />
+      <TextField fx:id="textFossil" layoutX="36.0" layoutY="336.0" prefHeight="25.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
