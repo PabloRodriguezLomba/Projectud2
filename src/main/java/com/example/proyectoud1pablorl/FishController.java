@@ -30,6 +30,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FishController implements Initializable {
 
@@ -57,7 +59,11 @@ public class FishController implements Initializable {
 
     private FishItem[] fish;
 
-
+    /**
+     * Cambia la escena actual a la de la pagina de inicio
+     * @param event
+     * @throws IOException
+     */
     public void switchToIntro(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -66,10 +72,19 @@ public class FishController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Cierra la aplicacion
+     * @param event
+     * @throws IOException
+     */
     public void end(MouseEvent event) throws  IOException {
         System.exit(0);
     }
 
+    /**
+     * Consigue de la api toda la informacion sobre los peces en un array y la utiliza para escribir en la tabla
+     * @param event
+     */
     public void getAllFish(ActionEvent event) {
         try {
             int responseCode;
@@ -121,6 +136,11 @@ public class FishController implements Initializable {
 
     }
 
+    /**
+     * inicializa las columnas de la tabla asignandoles valor y añade los filtros al fileChooser
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fileChooser.setInitialDirectory(new File("."));
@@ -133,10 +153,39 @@ public class FishController implements Initializable {
         fishcatch.setCellValueFactory(new PropertyValueFactory<>("Catch"));
     }
 
+    /**
+     * Obtine la informacion de un pez desde la api utilizando una id que introduce el usuario
+     */
     public void getOneFish() {
         try {
             int responseCode;
-            int id = Integer.parseInt(textfish.getText());
+            int id = 0;
+            int ero = 1;
+            if (!textfish.getText().isEmpty()) {
+                Pattern pattern = Pattern.compile("[A-z]");
+                for (int i = 0; i < textfish.getText().length();i++) {
+                    String text;
+                    if (i == textfish.getText().length() - 1) {
+                        text = textfish.getText().substring(i);
+                    } else {
+                        text = textfish.getText().substring(i,i+1);
+                    }
+
+                    Matcher matcher = pattern.matcher(text);
+                    if (matcher.find()) {
+                        ero = 0;
+                    }
+                }
+
+                if (ero != 1) {
+                    id = 0;
+                } else {
+                    id = Integer.parseInt(textfish.getText());
+                }
+
+
+
+            }
             URL ur = new URL("http://acnhapi.com/v1/fish/" + id);
             HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
             conn.setRequestMethod("GET");
@@ -173,6 +222,10 @@ public class FishController implements Initializable {
         }
     }
 
+    /**
+     * Utilizando el objeto fileChooser utilizamos un saveDialog donde conseguimos el nombre del documento y su path
+     * despues de esto simplemente escribimos en  el documento la informacion que esta en la tabla
+     */
     public void saveFile(){
 
         Window stage = TableFish.getScene().getWindow();

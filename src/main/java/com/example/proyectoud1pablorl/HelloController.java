@@ -37,7 +37,11 @@ public class HelloController  implements Initializable {
     @FXML
     private ImageView exit,menu;
 
-
+    /**
+     * Crea el menu de la izquieda de la pagina principal
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -90,7 +94,11 @@ public class HelloController  implements Initializable {
         });
     }
 
-
+    /**
+     * Cambia la escena a la de Fish.fxml
+     * @param event
+     * @throws IOException
+     */
     public void switchToFish(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Fish.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -99,6 +107,11 @@ public class HelloController  implements Initializable {
         stage.show();
     }
 
+    /**
+     * Cambia la escena a Fossil.fxml
+     * @param event
+     * @throws IOException
+     */
     public void switchToFossil(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Fossil.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -107,6 +120,11 @@ public class HelloController  implements Initializable {
         stage.show();
     }
 
+    /**
+     * Cambia la escena a Bug.fxml
+     * @param event
+     * @throws IOException
+     */
     public void switchToBug(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("Bug.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

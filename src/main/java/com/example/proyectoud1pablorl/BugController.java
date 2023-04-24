@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BugController implements Initializable {
 
@@ -55,6 +57,11 @@ public class BugController implements Initializable {
     private TextField textForBug;
     BugItem[] bug;
 
+    /**
+     * Cambia la escena actual a la de la pagina de inicio
+     * @param event
+     * @throws IOException
+     */
     public void switchToIntro(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -63,10 +70,20 @@ public class BugController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Cierra la aplicacion
+     * @param event
+     * @throws IOException
+     */
     public void end(MouseEvent event) throws  IOException {
         System.exit(0);
     }
 
+    /**
+     * inicializa las columnas de la tabla y añadel los filtros para el fileChooser
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fileChooser.setInitialDirectory(new File("."));
@@ -79,7 +96,10 @@ public class BugController implements Initializable {
 
     }
 
-
+    /**
+     * Hace una llamada a la api y obtiene un array de todos los bicho despues de eso utiliza el array para escribir en la tabla
+     * @param event
+     */
     public void getAllBug(ActionEvent event) {
         try {
             int responseCode;
@@ -131,10 +151,40 @@ public class BugController implements Initializable {
 
     }
 
+    /**
+     * hace una llamada en la api para obtener un bicho utilizando la id que escribes en la textView
+     * @param event
+     */
     public void getBugById(ActionEvent event) {
         try {
             int responseCode;
-            int id = Integer.parseInt(textForBug.getText());
+            int id= 0;
+            int ero = 1;
+            if (!textForBug.getText().isEmpty()) {
+                Pattern pattern = Pattern.compile("[A-z]");
+                for (int i = 0; i < textForBug.getText().length();i++) {
+                    String text;
+                    if (i == textForBug.getText().length() - 1) {
+                        text = textForBug.getText().substring(i);
+                    } else {
+                        text = textForBug.getText().substring(i,i+1);
+                    }
+
+                    Matcher matcher = pattern.matcher(text);
+                    if (matcher.find()) {
+                        ero = 0;
+                    }
+                }
+
+                if (ero != 1) {
+                    id = 0;
+                } else {
+                    id = Integer.parseInt(textForBug.getText());
+                }
+
+
+
+            }
             URL ur = new URL("http://acnhapi.com/v1/bugs/" + id);
             HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
             conn.setRequestMethod("GET");
@@ -171,6 +221,10 @@ public class BugController implements Initializable {
         }
     }
 
+    /**
+     * Utilizando el objeto fileChooser utilizamos un saveDialog donde conseguimos el nombre del documento y su path
+     * despues de esto simplemente escribimos en  el documento la informacion que esta en la tabla
+     */
     public void saveFile(){
 
         Window stage = tableBug.getScene().getWindow();

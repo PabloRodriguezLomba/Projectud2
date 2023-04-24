@@ -49,6 +49,11 @@ public class FossilController implements Initializable {
 
     private FossilItem[] foss;
 
+    /**
+     * Cambia la escena actual a la de la pagina de inicio
+     * @param event
+     * @throws IOException
+     */
     public void switchToIntro(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -57,10 +62,20 @@ public class FossilController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Cierra la aplicacion
+     * @param event
+     * @throws IOException
+     */
     public void end(MouseEvent event) throws  IOException {
         System.exit(0);
     }
 
+    /**
+     * Inicializa las columnas de la tabla y añade los filtras al fileChooser
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fileChooser.setInitialDirectory(new File("."));
@@ -70,6 +85,10 @@ public class FossilController implements Initializable {
         FossilMuseum.setCellValueFactory(new PropertyValueFactory<>("Museum"));
     }
 
+    /**
+     * Obtiene un array con todos los fosiles de la api y lo utiliza para escribirlos en la tabla
+     * @param event
+     */
     public void getAllFossil(ActionEvent event){
         try {
             int responseCode;
@@ -120,10 +139,18 @@ public class FossilController implements Initializable {
         }
     }
 
+    /**
+     * Obtiene un fosil de la api con un nombre que el usuario introduce despues escribe la informacion en la tabla
+     * @param event
+     */
     public void getOneFossil(ActionEvent event) {
         try {
             int responseCode;
-            String id = textFossil.getText();
+            String id = "ambe";
+            if (!textFossil.getText().isEmpty()) {
+                 id = textFossil.getText();
+            }
+
             URL ur = new URL("http://acnhapi.com/v1/fossils/" + id);
             HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
             conn.setRequestMethod("GET");
@@ -160,6 +187,10 @@ public class FossilController implements Initializable {
         }
     }
 
+    /**
+     * Utilizando el objeto fileChooser utilizamos un saveDialog donde conseguimos el nombre del documento y su path
+     * despues de esto simplemente escribimos en  el documento la informacion que esta en la tabla
+     */
     public void saveFile(){
 
         Window stage = TableFossil.getScene().getWindow();
