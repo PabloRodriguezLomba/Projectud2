@@ -1,5 +1,7 @@
 package com.example.proyectoud1pablorl;
 
+import com.example.proyectoud1pablorl.Object.Fish;
+import com.example.proyectoud1pablorl.Object.FishItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
@@ -9,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,6 +28,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -35,6 +37,9 @@ import java.util.regex.Pattern;
 
 public class FishController implements Initializable {
 
+    private Connection con;
+
+    private DAO dao = new DAO();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -86,53 +91,15 @@ public class FishController implements Initializable {
      * @param event
      */
     public void getAllFish(ActionEvent event) {
-        try {
-            int responseCode;
-            ArrayList<Fish> bu = new ArrayList<>();
-            URL ur = new URL("http://acnhapi.com/v1a/fish/");
-            HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            responseCode = conn.getResponseCode();
-
-            if (responseCode != 200) {
-                System.out.println("done all fish");
-            } else {
-                Scanner sc = new Scanner(ur.openStream());
-                while (sc.hasNext()) {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.disable(DeserializationFeature
-                            .FAIL_ON_UNKNOWN_PROPERTIES);
-                    String obs = sc.nextLine();
-                    fish = objectMapper.readValue(obs, FishItem[].class);
 
 
-                }
-            }
+            ArrayList<Fish> fis = dao.getAllFish(con);
 
-
-            for (int i = 0; i < fish.length;i++) {
-
-
-                bu.add(new Fish(fish[i].getId(),fish[i].getFileName(),fish[i].getShadow(),fish[i].getPrice(),fish[i].getPriceCj(),fish[i].getCatchPhrase()));
-
-
-            }
             TableFish.getItems().clear();
-            TableFish.getItems().addAll(bu);
+            TableFish.getItems().addAll(fis);
 
 
 
-
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
@@ -143,6 +110,7 @@ public class FishController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        con = dao.connect();
         fileChooser.setInitialDirectory(new File("."));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
         idfish.setCellValueFactory(new PropertyValueFactory<>("i"));
@@ -157,7 +125,7 @@ public class FishController implements Initializable {
      * Obtine la informacion de un pez desde la api utilizando una id que introduce el usuario
      */
     public void getOneFish() {
-        try {
+
             int responseCode;
             int id = 0;
             int ero = 1;
@@ -186,40 +154,16 @@ public class FishController implements Initializable {
 
 
             }
-            URL ur = new URL("http://acnhapi.com/v1/fish/" + id);
-            HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            responseCode = conn.getResponseCode();
-
-            if (responseCode != 200) {
-                System.out.println("done all bugs");
-            } else {
-                Scanner sc = new Scanner(ur.openStream());
-                while (sc.hasNext()) {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                    String obs = sc.nextLine();
-                    FishItem bug = objectMapper.readValue(obs, FishItem.class);
+                    Fish fis = dao.getFishId(con,id);
                     TableFish.getItems().clear();
-                    TableFish.getItems().add(new Fish(bug.id, bug.fileName,bug.shadow, bug.price, bug.priceCj, bug.catchPhrase));
-
-                }
-            }
+                    TableFish.getItems().add(fis);
 
 
 
 
 
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+
     }
 
     /**

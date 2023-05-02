@@ -19,11 +19,12 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class HelloController  implements Initializable {
 
-
+    private Connection con;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -44,6 +45,7 @@ public class HelloController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
 
         exit.setOnMouseClicked(mouseEvent -> {
@@ -100,6 +102,7 @@ public class HelloController  implements Initializable {
      * @throws IOException
      */
     public void switchToFish(MouseEvent event) throws IOException {
+        System.out.println(getClass().getResource("Fish.fxml"));
         root = FXMLLoader.load(getClass().getResource("Fish.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

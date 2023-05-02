@@ -1,4 +1,4 @@
-package com.example.proyectoud1pablorl;
+package com.example.proyectoud1pablorl.Object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

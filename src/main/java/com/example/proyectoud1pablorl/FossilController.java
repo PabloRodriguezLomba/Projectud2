@@ -1,5 +1,7 @@
 package com.example.proyectoud1pablorl;
 
+import com.example.proyectoud1pablorl.Object.Fossil;
+import com.example.proyectoud1pablorl.Object.FossilItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
@@ -26,14 +28,19 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class FossilController implements Initializable {
+
+    private Connection con;
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    private DAO dao = new DAO();
 
     FileChooser fileChooser = new FileChooser();
     @FXML
@@ -78,6 +85,7 @@ public class FossilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        con = dao.connect();
         fileChooser.setInitialDirectory(new File("."));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
         FossilName.setCellValueFactory(new PropertyValueFactory<>("Nam"));
@@ -90,53 +98,11 @@ public class FossilController implements Initializable {
      * @param event
      */
     public void getAllFossil(ActionEvent event){
-        try {
-            int responseCode;
-            ArrayList<Fossil> bu = new ArrayList<>();
-            URL ur = new URL("http://acnhapi.com/v1a/fossils/");
-            HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
 
-            responseCode = conn.getResponseCode();
-
-            if (responseCode != 200) {
-                System.out.println("done all fish");
-            } else {
-                Scanner sc = new Scanner(ur.openStream());
-                while (sc.hasNext()) {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.disable(DeserializationFeature
-                            .FAIL_ON_UNKNOWN_PROPERTIES);
-                    String obs = sc.nextLine();
-                    foss = objectMapper.readValue(obs, FossilItem[].class);
-
-
-                }
-            }
-
-
-            for (int i = 0; i < foss.length;i++) {
-
-
-                bu.add(new Fossil(foss[i].getFileName(),foss[i].getPrice(),foss[i].getMuseumPhrase()));
-
-
-            }
+            ArrayList<Fossil> fossi = dao.getAllFossil(con);
             TableFossil.getItems().clear();
-            TableFossil.getItems().addAll(bu);
+            TableFossil.getItems().addAll(fossi);
 
-
-
-
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -144,47 +110,17 @@ public class FossilController implements Initializable {
      * @param event
      */
     public void getOneFossil(ActionEvent event) {
-        try {
+
             int responseCode;
             String id = "ambe";
             if (!textFossil.getText().isEmpty()) {
                  id = textFossil.getText();
             }
-
-            URL ur = new URL("http://acnhapi.com/v1/fossils/" + id);
-            HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            responseCode = conn.getResponseCode();
-
-            if (responseCode != 200) {
-                System.out.println("done all bugs");
-            } else {
-                Scanner sc = new Scanner(ur.openStream());
-                while (sc.hasNext()) {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                    String obs = sc.nextLine();
-                    FossilItem bug = objectMapper.readValue(obs, FossilItem.class);
+                    Fossil fos = dao.getFossilId(con,id);
                     TableFossil.getItems().clear();
-                    TableFossil.getItems().add(new Fossil(bug.fileName, bug.price,bug.museumPhrase));
-
-                }
-            }
+                    TableFossil.getItems().add(fos);
 
 
-
-
-
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
