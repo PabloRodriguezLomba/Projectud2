@@ -4,6 +4,7 @@ import com.example.proyectoud1pablorl.DAO;
 import com.example.proyectoud1pablorl.Object.Bug;
 import com.example.proyectoud1pablorl.Object.BugItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -195,32 +196,25 @@ public class BugController implements Initializable {
 
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
-                        URL ur = new URL("http://acnhapi.com/v1a/bugs/");
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
-                            fil.write(sc.nextLine());
-                        }
+                       tableBug.getItems();
+                       for (int i = 0;i < tableBug.getItems().size();i++) {
+                           fil.write(tableBug.getItems().get(i).toString());
+                       }
 
                     }
                 } else if (tableBug.getItems().size() == 1) {
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
                         int id = tableBug.getItems().get(0).getI();
-                        URL ur = new URL("http://acnhapi.com/v1/bugs/" + id);
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
-
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
-
-                            fil.write(sc.nextLine());
 
 
-                        }
+                        Bug buss = dao.getBugId(con,id);
+
+
+                            fil.write(buss.toString());
+
+
+
 
                     }
                 }

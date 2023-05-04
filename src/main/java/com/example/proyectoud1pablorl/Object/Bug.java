@@ -81,4 +81,16 @@ public class Bug{
 	public void setCatch(String aCatch) {
 		this.Catch.set(aCatch);
 	}
+
+	@Override
+	public String toString() {
+		String cadea = " id: ";
+		cadea += i;
+		cadea += " name: " + Nam;
+		cadea += " price: " + Pric;
+		cadea += " price Flick: " + Flick;
+		cadea += " Catch Phrase: " + Catch + "\n";
+		return cadea;
+
+	}
 }
