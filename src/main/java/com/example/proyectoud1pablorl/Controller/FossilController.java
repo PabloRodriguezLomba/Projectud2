@@ -1,8 +1,10 @@
-package com.example.proyectoud1pablorl;
+package com.example.proyectoud1pablorl.Controller;
 
-import com.example.proyectoud1pablorl.Object.Bug;
-import com.example.proyectoud1pablorl.Object.BugItem;
+import com.example.proyectoud1pablorl.DAO;
+import com.example.proyectoud1pablorl.Object.Fossil;
+import com.example.proyectoud1pablorl.Object.FossilItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +19,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.stage.Window;
 
 import java.io.File;
-import java.net.*;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,36 +33,29 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class BugController implements Initializable {
+public class FossilController implements Initializable {
 
-    ArrayList<Bug> bugArray = new ArrayList<>();
+    private Connection con;
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    private Connection con;
-
     private DAO dao = new DAO();
-    FileChooser fileChooser = new FileChooser();
 
+    FileChooser fileChooser = new FileChooser();
     @FXML
-    private TableView<Bug> tableBug;
+    private TableView<Fossil> TableFossil;
     @FXML
-    private TableColumn<Bug,Integer> id;
+    private TableColumn<Fossil,String> FossilName;
     @FXML
-    private TableColumn<Bug,String> Name;
+    private TableColumn<Fossil,Integer> FossilPrice;
     @FXML
-    private TableColumn<Bug,Integer>Price;
+    private TableColumn<Fossil,String> FossilMuseum;
     @FXML
-    private TableColumn<Bug,Integer>priceFlick;
-    @FXML
-    private TableColumn<Bug,String> catchPhrase;
-    @FXML
-    private TextField textForBug;
-    BugItem[] bug;
+    private TextField textFossil;
+
+    private FossilItem[] foss;
 
     /**
      * Cambia la escena actual a la de la pagina de inicio
@@ -84,7 +80,7 @@ public class BugController implements Initializable {
     }
 
     /**
-     * inicializa las columnas de la tabla y añadel los filtros para el fileChooser
+     * Inicializa las columnas de la tabla y añade los filtras al fileChooser
      * @param url
      * @param resourceBundle
      */
@@ -93,73 +89,37 @@ public class BugController implements Initializable {
         con = dao.connect();
         fileChooser.setInitialDirectory(new File("."));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
-        id.setCellValueFactory(new PropertyValueFactory<>("i"));
-        Name.setCellValueFactory(new PropertyValueFactory<>("Nam"));
-        Price.setCellValueFactory(new PropertyValueFactory<>("Pric"));
-        priceFlick.setCellValueFactory(new PropertyValueFactory<>("Flick"));
-        catchPhrase.setCellValueFactory(new PropertyValueFactory<>("Catch"));
+        FossilName.setCellValueFactory(new PropertyValueFactory<>("Nam"));
+        FossilPrice.setCellValueFactory(new PropertyValueFactory<>("pric"));
+        FossilMuseum.setCellValueFactory(new PropertyValueFactory<>("Museum"));
+    }
+
+    /**
+     * Obtiene un array con todos los fosiles de la api y lo utiliza para escribirlos en la tabla
+     * @param event
+     */
+    public void getAllFossil(ActionEvent event){
+
+            ArrayList<Fossil> fossi = dao.getAllFossil(con);
+            TableFossil.getItems().clear();
+            TableFossil.getItems().addAll(fossi);
 
     }
 
     /**
-     * Hace una llamada a la api y obtiene un array de todos los bicho despues de eso utiliza el array para escribir en la tabla
+     * Obtiene un fosil de la api con un nombre que el usuario introduce despues escribe la informacion en la tabla
      * @param event
      */
-    public void getAllBug(ActionEvent event) {
-
-        ArrayList<Bug> bu = dao.getAllBug(con);
-                tableBug.getItems().clear();
-                tableBug.getItems().addAll(bu);
-
-
-
-
-
-
-    }
-
-    /**
-     * hace una llamada en la api para obtener un bicho utilizando la id que escribes en la textView
-     * @param event
-     */
-    public void getBugById(ActionEvent event) {
+    public void getOneFossil(ActionEvent event) {
 
             int responseCode;
-            int id= 0;
-            int ero = 1;
-            if (!textForBug.getText().isEmpty()) {
-                Pattern pattern = Pattern.compile("[A-z]");
-                for (int i = 0; i < textForBug.getText().length();i++) {
-                    String text;
-                    if (i == textForBug.getText().length() - 1) {
-                        text = textForBug.getText().substring(i);
-                    } else {
-                        text = textForBug.getText().substring(i,i+1);
-                    }
-
-                    Matcher matcher = pattern.matcher(text);
-                    if (matcher.find()) {
-                        ero = 0;
-                    }
-                }
-
-                if (ero != 1) {
-                    id = 0;
-                } else {
-                    id = Integer.parseInt(textForBug.getText());
-                }
-
-
-
+            String id = "ambe";
+            if (!textFossil.getText().isEmpty()) {
+                 id = textFossil.getText();
             }
-                    Bug bus = dao.getBugId(con,id);
-                    tableBug.getItems().clear();
-                    tableBug.getItems().add(bus);
-
-
-
-
-
+                    Fossil fos = dao.getFossilId(con,id);
+                    TableFossil.getItems().clear();
+                    TableFossil.getItems().add(fos);
 
 
     }
@@ -170,9 +130,9 @@ public class BugController implements Initializable {
      */
     public void saveFile(){
 
-        Window stage = tableBug.getScene().getWindow();
+        Window stage = TableFossil.getScene().getWindow();
         fileChooser.setTitle("Save Dialog");
-        fileChooser.setInitialFileName("Bugs");
+        fileChooser.setInitialFileName("Fossil");
         try {
             File file = fileChooser.showSaveDialog(stage);
             fileChooser.setInitialDirectory(file.getParentFile());
@@ -180,12 +140,12 @@ public class BugController implements Initializable {
 
                 file.createNewFile();
 
-                if (tableBug.getItems().size() > 1) {
+                if (TableFossil.getItems().size() > 1) {
 
 
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
-                        URL ur = new URL("http://acnhapi.com/v1a/bugs/");
+                        URL ur = new URL("http://acnhapi.com/v1a/fossils/");
                         HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
                         conn.setRequestMethod("GET");
                         conn.connect();
@@ -195,11 +155,11 @@ public class BugController implements Initializable {
                         }
 
                     }
-                } else if (tableBug.getItems().size() == 1) {
+                } else if (TableFossil.getItems().size() == 1) {
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
-                        int id = tableBug.getItems().get(0).getI();
-                        URL ur = new URL("http://acnhapi.com/v1/bugs/" + id);
+                        String id = TableFossil.getItems().get(0).getNam();
+                        URL ur = new URL("http://acnhapi.com/v1/fossils/" + id);
                         HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
                         conn.setRequestMethod("GET");
                         conn.connect();
@@ -222,7 +182,4 @@ public class BugController implements Initializable {
         }
 
     }
-
-
-
 }

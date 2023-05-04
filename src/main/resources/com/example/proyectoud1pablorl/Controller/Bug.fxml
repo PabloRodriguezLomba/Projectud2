@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.BugController">
+<AnchorPane fx:id="bugpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.Controller.BugController">
    <children>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
             <ImageView fx:id="exit" fitHeight="24.0" fitWidth="24.0" layoutX="756.0" layoutY="10.0" onMouseClicked="#end" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/button.png" />
+                  <Image url="@../../../../img/button.png" />
                </image>
             </ImageView>
             <ImageView fx:id="back" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="7.0" onMouseClicked="#switchToIntro" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/arrow.png" />
+                  <Image url="@../../../../img/arrow.png" />
                </image>
             </ImageView>
             <ImageView fx:id="back1" fitHeight="30.0" fitWidth="30.0" layoutX="76.0" layoutY="7.0" onMouseClicked="#saveFile" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="76.0">
                <image>
-                  <Image url="@../../../img/export.png" />
+                  <Image url="@../../../../img/export.png" />
                </image>
             </ImageView>
          </children>

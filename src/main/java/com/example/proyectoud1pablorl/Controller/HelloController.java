@@ -1,4 +1,4 @@
-package com.example.proyectoud1pablorl;
+package com.example.proyectoud1pablorl.Controller;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -32,7 +32,9 @@ public class HelloController  implements Initializable {
     FileChooser fileChooser = new FileChooser();
 
     @FXML
-    private AnchorPane pane1,paneOptions;
+    private AnchorPane pane1,paneOptions,hellopane;
+
+
 
 
     @FXML
@@ -102,6 +104,9 @@ public class HelloController  implements Initializable {
      * @throws IOException
      */
     public void switchToFish(MouseEvent event) throws IOException {
+
+
+
         System.out.println(getClass().getResource("Fish.fxml"));
         root = FXMLLoader.load(getClass().getResource("Fish.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

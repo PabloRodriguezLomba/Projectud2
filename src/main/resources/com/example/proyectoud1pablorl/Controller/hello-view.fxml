@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.HelloController">
+<AnchorPane fx:id="hellopane" prefHeight="567.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoud1pablorl.Controller.HelloController">
    <children>
       <ImageView fitHeight="494.0" fitWidth="819.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="42.3125" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="-63.0" AnchorPane.topAnchor="64.0">
          <image>
-            <Image url="@../../../img/AlmostDone.png" />
+            <Image url="@../../../../img/AlmostDone.png" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="43.0" prefWidth="794.0" style="-fx-background-color: #84A436;">
          <children>
             <ImageView fx:id="exit" fitHeight="24.0" fitWidth="24.0" layoutX="756.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/button.png" />
+                  <Image url="@../../../../img/button.png" />
                </image>
             </ImageView>
             <ImageView fx:id="menu" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="7.0" onMouseClicked="#switchToFish" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/menu-of-three-lines.png" />
+                  <Image url="@../../../../img/menu-of-three-lines.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
@@ -34,17 +34,17 @@
                <children>
                   <ImageView fitHeight="62.0" fitWidth="62.0" onMouseClicked="#switchToFish" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/fishIcon.png" />
+                        <Image url="@../../../../img/fishIcon.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="62.0" fitWidth="62.0" onMouseClicked="#switchToFossil" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/fossilIcon.png" />
+                        <Image url="@../../../../img/fossilIcon.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="62.0" fitWidth="62.0" onMouseClicked="#switchToBug" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../img/bugIcon.png" />
+                        <Image url="@../../../../img/bugIcon.png" />
                      </image>
                   </ImageView>
                </children>

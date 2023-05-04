@@ -9,6 +9,8 @@ module com.example.proyectoud1pablorl {
 
     exports com.example.proyectoud1pablorl.Object;
     opens com.example.proyectoud1pablorl.Object to javafx.fxml;
+    exports com.example.proyectoud1pablorl.Controller;
+    opens com.example.proyectoud1pablorl.Controller to javafx.fxml;
 
 
 }
