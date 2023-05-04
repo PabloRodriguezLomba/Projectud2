@@ -127,6 +127,229 @@ public class DAO {
         }
     }
 
+    public void addFossil(Connection con , Fossil fosi) {
+
+        String nam = fosi.getNam();
+        int pric = fosi.getPric();
+        String muse = fosi.getMuseum();
+
+        try(Statement st = con.createStatement()) {
+
+            int numFiles = st.executeUpdate("INSERT INTO fossil (name,price,Museum) VALUES ('" +nam + "','"+pric+"','"+muse+"'  )");
+
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public void addFish(Connection con , Fish fish) {
+
+        int id = fish.getI();
+        String nae = fish.getNam();
+        String shad = fish.getShado();
+        int pric = fish.getPric();
+        int priccj = fish.getPriccj();
+        String catc = fish.getCatch();
+
+        try(Statement st = con.createStatement()) {
+
+            int numFiles = st.executeUpdate("INSERT INTO fish (id,name,shadow,Price,pricecj,Catch) VALUES ('" +id + "','"+nae+"','"+shad+"','"+pric+"','"+priccj+"','"+catc+"')");
+
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }    public void addBug(Connection con , Bug bug) {
+
+        int id = bug.getI();
+        String nam = bug.getNam();
+        int pric = bug.getPric();
+        int priflick = bug.getFlick();
+        String catc = bug.getCatch();
+
+        try(Statement st = con.createStatement()) {
+
+            int numFiles = st.executeUpdate("INSERT INTO bug (id,name,price,priceflick,catch) VALUES ('"+id+"','" +nam + "','"+pric+"','"+priflick+"','"+catc+"'  )");
+
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public void DeleteBugbyId(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM Bug where id = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeleteBugbyname(Connection con , String id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM Bug where name = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    public void DeleteBugbyPrice(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM Bug where Price = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeleteBugbyPriceflick(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del = st.executeUpdate("DELETE FROM Bug where priceflick = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeleteBugbyCatch(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM Bug where Catch = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void DeleteFishbyId(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fish where id = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void Deletefishbyname(Connection con , String id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fish where name = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void Deletefishbyshadow(Connection con , String id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fish where shadow = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeletefishbyPrice(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fish where Price = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeletefishbyPricecj(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del = st.executeUpdate("DELETE FROM fish where pricecj = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void DeletefishbyCatch(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fish where Catch = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void Deletefossilbyname(Connection con , String id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fossil where name = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void Deletefossilbyprice(Connection con , int id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fossil where price = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void DeletefossilbyMuseum(Connection con , String id) {
+
+        try(Statement st = con.createStatement()) {
+
+            int del= st.executeUpdate("DELETE FROM fossil where name = " + id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 

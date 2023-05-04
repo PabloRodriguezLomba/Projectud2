@@ -4,6 +4,7 @@ module com.example.proyectoud1pablorl {
     requires com.fasterxml.jackson.databind;
     requires java.sql;
 
+
     exports com.example.proyectoud1pablorl;
     opens com.example.proyectoud1pablorl to javafx.fxml;
 
