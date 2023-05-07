@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -62,6 +63,20 @@ public class FishController implements Initializable {
     private TableColumn<Fish,String> fishcatch;
     @FXML
     private TextField textfish;
+    @FXML
+    private ComboBox<String> combofish;
+    @FXML
+    private TextField adId;
+    @FXML
+    private TextField adName;
+    @FXML
+    private TextField adshadow;
+    @FXML
+    private TextField adprice;
+    @FXML
+    private TextField adcj;
+    @FXML
+    private TextField adcatch;
 
     private FishItem[] fish;
 
@@ -120,12 +135,50 @@ public class FishController implements Initializable {
         fishprice.setCellValueFactory(new PropertyValueFactory<>("Pric"));
         fishpricecj.setCellValueFactory(new PropertyValueFactory<>("Priccj"));
         fishcatch.setCellValueFactory(new PropertyValueFactory<>("Catch"));
+        combofish.getItems().add("id");
+        combofish.getItems().add("name");
+        combofish.getItems().add("shadow");
+        combofish.getItems().add("Price");
+        combofish.getItems().add("pricecj");
+        combofish.getItems().add("Catch");
     }
+
+
+    public void getFishbyColumn() {
+
+
+        if (combofish.getValue() == null) {
+
+        } else {
+            if (combofish.getValue().equals("id")) {
+                getFishbyid();
+            } else if (combofish.getValue().equals("name")) {
+                getfishbyname();
+            } else if (combofish.getValue().equals("shadow")) {
+                getfishbyshadow();
+            } else if (combofish.getValue().equals("Price")) {
+                getFishbyPrice();
+            } else if (combofish.getValue().equals("pricecj")) {
+                getFishbyPricecj();
+            } else if (combofish.getValue().equals("Catch")) {
+                getfishbyncatch();
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
 
     /**
      * Obtine la informacion de un pez desde la api utilizando una id que introduce el usuario
      */
-    public void getOneFish() {
+    public void getFishbyid() {
 
             int responseCode;
             int id = 0;
@@ -167,6 +220,238 @@ public class FishController implements Initializable {
 
     }
 
+    public void getfishbyname() {
+        String id = "";
+        if(!textfish.getText().isEmpty()) {
+            id = textfish.getText();
+        }
+        Fish fish1 = dao.getFishname(con,id);
+        TableFish.getItems().clear();
+        TableFish.getItems().add(fish1);
+    }
+
+    public void getfishbyshadow() {
+        String id = "";
+        if(!textfish.getText().isEmpty()) {
+            id = textfish.getText();
+        }
+        ArrayList<Fish> fish1 = dao.getFishshadow(con,id);
+        TableFish.getItems().clear();
+        TableFish.getItems().addAll(fish1);
+    }
+
+    public void getfishbyncatch() {
+        String id = "";
+        if(!textfish.getText().isEmpty()) {
+            id = textfish.getText();
+        }
+        Fish fish1 = dao.getFishscatch(con,id);
+        TableFish.getItems().clear();
+        TableFish.getItems().add(fish1);
+    }
+
+    public void getFishbyPrice() {
+
+        int responseCode;
+        int id = 0;
+        int ero = 1;
+        if (!textfish.getText().isEmpty()) {
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < textfish.getText().length();i++) {
+                String text;
+                if (i == textfish.getText().length() - 1) {
+                    text = textfish.getText().substring(i);
+                } else {
+                    text = textfish.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(textfish.getText());
+            }
+
+
+
+        }
+        ArrayList<Fish> fis = dao.getFishPrice(con,id);
+        TableFish.getItems().clear();
+        TableFish.getItems().addAll(fis);
+
+
+
+
+
+
+
+    }
+
+    public void getFishbyPricecj() {
+
+        int responseCode;
+        int id = 0;
+        int ero = 1;
+        if (!textfish.getText().isEmpty()) {
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < textfish.getText().length();i++) {
+                String text;
+                if (i == textfish.getText().length() - 1) {
+                    text = textfish.getText().substring(i);
+                } else {
+                    text = textfish.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(textfish.getText());
+            }
+
+
+
+        }
+        ArrayList<Fish> fis = dao.getFishPricecj(con,id);
+        TableFish.getItems().clear();
+        TableFish.getItems().addAll(fis);
+
+
+
+
+
+
+
+    }
+
+    public void deleteFish() {
+        if (combofish.getValue() == null) {
+
+        } else {
+            if (combofish.getValue().equals("id")) {
+                dao.DeleteFishbyId(con,Integer.parseInt(textfish.getText()));
+            } else if (combofish.getValue().equals("name")) {
+                dao.Deletefishbyname(con,textfish.getText());
+            } else if (combofish.getValue().equals("shadow")) {
+                dao.Deletefishbyshadow(con,textfish.getText());
+            } else if (combofish.getValue().equals("Price")) {
+                dao.DeletefishbyPrice(con,Integer.parseInt(textfish.getText()));
+            } else if (combofish.getValue().equals("pricecj")) {
+                dao.DeletefishbyPricecj(con,Integer.parseInt(textfish.getText()));
+            } else if (combofish.getValue().equals("Catch")) {
+                dao.DeletefishbyCatch(con,textfish.getText());
+            }
+        }
+    }
+
+
+    public void addFish() {
+
+        if (adId.getText().isEmpty() || adName.getText().isEmpty() || adshadow.getText().isEmpty() || adprice.getText().isEmpty() || adcj.getText().isEmpty() || adcatch.getText().isEmpty()) {
+
+
+        } else {
+
+            int id = 0;
+            int ero = 1;
+
+                Pattern pattern = Pattern.compile("[A-z]");
+                for (int i = 0; i < adId.getText().length();i++) {
+                    String text;
+                    if (i == adId.getText().length() - 1) {
+                        text = adId.getText().substring(i);
+                    } else {
+                        text = adId.getText().substring(i,i+1);
+                    }
+
+                    Matcher matcher = pattern.matcher(text);
+                    if (matcher.find()) {
+                        ero = 0;
+                    }
+                }
+
+                if (ero != 1) {
+                    id = 0;
+                } else {
+                    id = Integer.parseInt(adId.getText());
+                }
+
+                String name;
+                name= adName.getText();
+                String shadow;
+                shadow = adshadow.getText();
+
+            int price = 0;
+            ero = 1;
+
+
+            for (int i = 0; i < adId.getText().length();i++) {
+                String text;
+                if (i == adId.getText().length() - 1) {
+                    text = adId.getText().substring(i);
+                } else {
+                    text = adId.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                price = Integer.parseInt(adId.getText());
+            }
+
+            int pricecj = 0;
+            ero = 1;
+
+
+            for (int i = 0; i < adcj.getText().length();i++) {
+                String text;
+                if (i == adcj.getText().length() - 1) {
+                    text = adcj.getText().substring(i);
+                } else {
+                    text = adcj.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                pricecj = Integer.parseInt(adcj.getText());
+            }
+
+            String Catch;
+            Catch = adcatch.getText();
+
+            try {
+                Fish fu = new Fish(id,name,shadow,price,pricecj,Catch);
+                dao.addFish(con,fu);
+
+            } catch (Exception e) {
+
+            }
+        }
+
+    }
     /**
      * Utilizando el objeto fileChooser utilizamos un saveDialog donde conseguimos el nombre del documento y su path
      * despues de esto simplemente escribimos en  el documento la informacion que esta en la tabla

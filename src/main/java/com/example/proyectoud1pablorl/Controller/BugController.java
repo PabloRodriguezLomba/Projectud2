@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +23,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.stage.Window;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.net.*;
@@ -49,6 +51,8 @@ public class BugController implements Initializable {
     FileChooser fileChooser = new FileChooser();
 
     @FXML
+    private ComboBox<String> combobug;
+    @FXML
     private TableView<Bug> tableBug;
     @FXML
     private TableColumn<Bug,Integer> id;
@@ -62,6 +66,16 @@ public class BugController implements Initializable {
     private TableColumn<Bug,String> catchPhrase;
     @FXML
     private TextField textForBug;
+    @FXML
+    private TextField addid;
+    @FXML
+    private TextField addName;
+    @FXML
+    private TextField addPrice;
+    @FXML
+    private TextField addPriceflick;
+    @FXML
+    private TextField addCatch;
     BugItem[] bug;
 
     @FXML
@@ -109,6 +123,11 @@ public class BugController implements Initializable {
         Price.setCellValueFactory(new PropertyValueFactory<>("Pric"));
         priceFlick.setCellValueFactory(new PropertyValueFactory<>("Flick"));
         catchPhrase.setCellValueFactory(new PropertyValueFactory<>("Catch"));
+        combobug.getItems().add("id");
+        combobug.getItems().add("name");
+        combobug.getItems().add("price");
+        combobug.getItems().add("priceflick");
+        combobug.getItems().add("catch");
 
     }
 
@@ -129,15 +148,39 @@ public class BugController implements Initializable {
 
     }
 
+
+
+    public void getBugbyColumn(ActionEvent event) {
+
+
+        if (combobug.getValue() == null) {
+
+        } else {
+            if (combobug.getValue().equals("id")) {
+                getBugById();
+            } else if (combobug.getValue().equals("name")) {
+                getBugbyname();
+            } else if (combobug.getValue().equals("price")) {
+                getBugByprice();
+            } else if (combobug.getValue().equals("priceflick")) {
+                getBugBypriceflick();
+            } else if (combobug.getValue().equals("catch")) {
+                getBugbycatch();
+            }
+        }
+    }
+
     /**
      * hace una llamada en la api para obtener un bicho utilizando la id que escribes en la textView
-     * @param event
+     * @param
      */
-    public void getBugById(ActionEvent event) {
+    public void getBugById() {
 
             int responseCode;
             int id= 0;
             int ero = 1;
+
+
             if (!textForBug.getText().isEmpty()) {
                 Pattern pattern = Pattern.compile("[A-z]");
                 for (int i = 0; i < textForBug.getText().length();i++) {
@@ -174,6 +217,250 @@ public class BugController implements Initializable {
 
 
     }
+
+    public void getBugbyname() {
+        String id = "a";
+        if (!textForBug.getText().isEmpty()) {
+            id = textForBug.getText();
+        }
+        Bug bug = dao.getBugName(con,id);
+        tableBug.getItems().clear();
+        tableBug.getItems().add(bug);
+    }
+
+    public void getBugByprice() {
+
+        int responseCode;
+        int id= 0;
+        int ero = 1;
+
+
+        if (!textForBug.getText().isEmpty()) {
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < textForBug.getText().length();i++) {
+                String text;
+                if (i == textForBug.getText().length() - 1) {
+                    text = textForBug.getText().substring(i);
+                } else {
+                    text = textForBug.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(textForBug.getText());
+            }
+
+
+
+        }
+        ArrayList<Bug> bus = dao.getBugPrice(con,id);
+        tableBug.getItems().clear();
+        tableBug.getItems().addAll(bus);
+
+
+
+
+
+
+
+    }
+
+    public void getBugbycatch() {
+        String id = "a";
+        if (!textForBug.getText().isEmpty()) {
+            id = textForBug.getText();
+        }
+        Bug bug = dao.getBugcatch(con,id);
+        tableBug.getItems().clear();
+        tableBug.getItems().add(bug);
+    }
+
+    public void getBugBypriceflick() {
+
+        int responseCode;
+        int id= 0;
+        int ero = 1;
+
+
+        if (!textForBug.getText().isEmpty()) {
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < textForBug.getText().length();i++) {
+                String text;
+                if (i == textForBug.getText().length() - 1) {
+                    text = textForBug.getText().substring(i);
+                } else {
+                    text = textForBug.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(textForBug.getText());
+            }
+
+
+
+        }
+        ArrayList<Bug> bus = dao.getBugflick(con,id);
+        tableBug.getItems().clear();
+        tableBug.getItems().addAll(bus);
+
+
+
+
+
+
+
+    }
+
+
+
+    public void addBug() {
+
+
+
+        if (addid.getText().isEmpty() || addName.getText().isEmpty() || addPrice.getText().isEmpty() || addPriceflick.getText().isEmpty() || addCatch.getText().isEmpty()) {
+
+        } else {
+
+
+
+        int id= 0;
+        int ero = 1;
+
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < addid.getText().length(); i++) {
+                String text;
+                if (i == addid.getText().length() - 1) {
+                    text = addid.getText().substring(i);
+                } else {
+                    text = addid.getText().substring(i, i + 1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(addid.getText());
+            }
+
+
+
+
+        String name = "a";
+        name = addName.getText();
+
+
+        int price= 0;
+        ero = 1;
+
+
+            for (int i = 0; i < addPrice.getText().length(); i++) {
+                String text;
+                if (i == addPrice.getText().length() - 1) {
+                    text = addPrice.getText().substring(i);
+                } else {
+                    text = addPrice.getText().substring(i, i + 1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                price = 0;
+            } else {
+                price = Integer.parseInt(addPrice.getText());
+            }
+
+
+
+
+        int priceflick= 0;
+        ero = 1;
+
+            for (int i = 0; i < addPriceflick.getText().length(); i++) {
+                String text;
+                if (i == addPriceflick.getText().length() - 1) {
+                    text = addPriceflick.getText().substring(i);
+                } else {
+                    text = addPriceflick.getText().substring(i, i + 1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                price = 0;
+            } else {
+                priceflick = Integer.parseInt(addPriceflick.getText());
+            }
+
+
+
+
+        String cath = "";
+
+        cath = addCatch.getText();
+
+
+
+    try {
+        Bug but = new Bug(id,name,price,priceflick,cath);
+        dao.addBug(con,but);
+    } catch (Exception e) {
+
+    }
+        }
+    }
+
+
+
+
+    public void deletebug() {
+
+        if (combobug.getValue() == null) {
+
+        } else {
+            if (combobug.getValue().equals("id")) {
+                dao.DeleteBugbyId(con,Integer.parseInt(textForBug.getText()));
+            } else if (combobug.getValue().equals("name")) {
+                dao.DeleteBugbyname(con,textForBug.getText());
+            } else if (combobug.getValue().equals("price")) {
+                dao.DeleteBugbyPrice(con,Integer.parseInt(textForBug.getText()));
+            } else if (combobug.getValue().equals("priceflick")) {
+                dao.DeleteBugbyPriceflick(con,Integer.parseInt(textForBug.getText()));
+            } else if (combobug.getValue().equals("catch")) {
+                dao.DeleteBugbyCatch(con,textForBug.getText());
+            }
+        }
+    }
+
+
+
 
     /**
      * Utilizando el objeto fileChooser utilizamos un saveDialog donde conseguimos el nombre del documento y su path

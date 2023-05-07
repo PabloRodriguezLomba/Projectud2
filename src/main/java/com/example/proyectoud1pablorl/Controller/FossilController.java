@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +35,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FossilController implements Initializable {
 
@@ -45,6 +49,8 @@ public class FossilController implements Initializable {
 
     FileChooser fileChooser = new FileChooser();
     @FXML
+    private ComboBox<String> combofossil;
+    @FXML
     private TableView<Fossil> TableFossil;
     @FXML
     private TableColumn<Fossil,String> FossilName;
@@ -54,6 +60,12 @@ public class FossilController implements Initializable {
     private TableColumn<Fossil,String> FossilMuseum;
     @FXML
     private TextField textFossil;
+    @FXML
+    private TextField adddName;
+    @FXML
+    private TextField adddPrice;
+    @FXML
+    private TextField adddMuseum;
 
     private FossilItem[] foss;
 
@@ -92,6 +104,10 @@ public class FossilController implements Initializable {
         FossilName.setCellValueFactory(new PropertyValueFactory<>("Nam"));
         FossilPrice.setCellValueFactory(new PropertyValueFactory<>("pric"));
         FossilMuseum.setCellValueFactory(new PropertyValueFactory<>("Museum"));
+        combofossil.getItems().add("Name");
+        combofossil.getItems().add("Price");
+        combofossil.getItems().add("Museum");
+
     }
 
     /**
@@ -112,16 +128,117 @@ public class FossilController implements Initializable {
      */
     public void getOneFossil(ActionEvent event) {
 
-            int responseCode;
+
             String id = "ambe";
-            if (!textFossil.getText().isEmpty()) {
-                 id = textFossil.getText();
+
+        if (combofossil.getValue() == null) {
+
+
+        } else {
+            if (combofossil.getValue().equals("Name")) {
+                if (!textFossil.getText().isEmpty()) {
+                    id = textFossil.getText();
+                }
+
+                Fossil fos = dao.getFossilId(con, id);
+                TableFossil.getItems().clear();
+                TableFossil.getItems().add(fos);
+            } else if (combofossil.getValue().equals("Price")) {
+                int price = 0;
+                int ero = 1;
+                Pattern pattern = Pattern.compile("[A-z]");
+                for (int i = 0; i < textFossil.getText().length();i++) {
+                    String text;
+                    if (i == textFossil.getText().length() - 1) {
+                        text = textFossil.getText().substring(i);
+                    } else {
+                        text = textFossil.getText().substring(i,i+1);
+                    }
+
+                    Matcher matcher = pattern.matcher(text);
+                    if (matcher.find()) {
+                        ero = 0;
+                    }
+                }
+
+                if (ero != 1) {
+                    price = 0;
+                } else {
+                    price = Integer.parseInt(textFossil.getText());
+                }
+
+                ArrayList<Fossil> fos = dao.getFossilPrice(con, price);
+                TableFossil.getItems().clear();
+                TableFossil.getItems().addAll(fos);
+
+            } else if (combofossil.getValue().equals("Museum")) {
+                if (!textFossil.getText().isEmpty()) {
+                    id = textFossil.getText();
+                }
+
+                Fossil fos = dao.getFossilMuseum(con, id);
+                TableFossil.getItems().clear();
+                TableFossil.getItems().add(fos);
+
             }
-                    Fossil fos = dao.getFossilId(con,id);
-                    TableFossil.getItems().clear();
-                    TableFossil.getItems().add(fos);
+        }
 
 
+    }
+
+    public void deletefossil() {
+        if (combofossil.getValue() == null) {
+
+
+        } else {
+            if (combofossil.getValue().equals("Name")) {
+               dao.Deletefossilbyname(con,textFossil.getText());
+            } else if (combofossil.getValue().equals("Price")) {
+                dao.Deletefossilbyprice(con,Integer.parseInt(textFossil.getText()));
+            } else if (combofossil.getValue().equals("Museum")) {
+                dao.DeletefossilbyMuseum(con,textFossil.getText());
+            }
+        }
+    }
+
+    public void addfossil() {
+        if(adddName.getText().isEmpty() || adddPrice.getText().isEmpty() || adddMuseum.getText().isEmpty()) {
+
+        } else {
+            String id;
+            id = adddName.getText();
+            String museum;
+            museum = adddMuseum.getText();
+            int price = 0;
+            int ero = 1;
+            Pattern pattern = Pattern.compile("[A-z]");
+            for (int i = 0; i < adddPrice.getText().length();i++) {
+                String text;
+                if (i == adddPrice.getText().length() - 1) {
+                    text = adddPrice.getText().substring(i);
+                } else {
+                    text = adddPrice.getText().substring(i,i+1);
+                }
+
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    ero = 0;
+                }
+            }
+
+            if (ero != 1) {
+                price = 0;
+            } else {
+                price = Integer.parseInt(adddPrice.getText());
+            }
+            try{
+                Fossil foss = new Fossil(id,price,museum);
+                dao.addFossil(con,foss);
+            } catch (Exception e) {
+
+            }
+
+        }
     }
 
     /**

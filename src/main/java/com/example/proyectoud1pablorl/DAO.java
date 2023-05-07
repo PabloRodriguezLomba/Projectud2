@@ -91,11 +91,183 @@ public class DAO {
         }
     }
 
+    public Fish getFishname(Connection con , String id) {
+        Fish fish = null;
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  fish where name = '" + id + "'")){
+
+                while (rs.next()) {
+                    fish = new Fish(rs.getInt("id"),rs.getString("name"),rs.getString("shadow"),rs.getInt("Price"),rs.getInt("pricecj"),rs.getString("Catch"));
+                }
+            }
+
+            return fish;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Fish> getFishshadow(Connection con , String id) {
+        Fish fish = null;
+        ArrayList<Fish> afish = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  fish where shadow = '" + id + "'")){
+
+                while (rs.next()) {
+                    fish = new Fish(rs.getInt("id"),rs.getString("name"),rs.getString("shadow"),rs.getInt("Price"),rs.getInt("pricecj"),rs.getString("Catch"));
+                    afish.add(fish);
+                }
+            }
+
+            return afish;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Fish> getFishPrice(Connection con , int id) {
+        Fish fish = null;
+        ArrayList<Fish> afish = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  fish where Price = " + id)){
+
+                while (rs.next()) {
+                    fish = new Fish(rs.getInt("id"),rs.getString("name"),rs.getString("shadow"),rs.getInt("Price"),rs.getInt("pricecj"),rs.getString("Catch"));
+                    afish.add(fish);
+                }
+            }
+
+            return afish;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Fish> getFishPricecj(Connection con , int id) {
+        Fish fish = null;
+        ArrayList<Fish> afish = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  fish where pricecj = " + id)){
+
+                while (rs.next()) {
+                    fish = new Fish(rs.getInt("id"),rs.getString("name"),rs.getString("shadow"),rs.getInt("Price"),rs.getInt("pricecj"),rs.getString("Catch"));
+                    afish.add(fish);
+                }
+            }
+
+            return afish;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Fish getFishscatch(Connection con , String id) {
+        Fish fish = null;
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  fish where Catch = '" + id + "'")){
+
+                while (rs.next()) {
+                    fish = new Fish(rs.getInt("id"),rs.getString("name"),rs.getString("shadow"),rs.getInt("Price"),rs.getInt("pricecj"),rs.getString("Catch"));
+                }
+            }
+
+            return fish;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Bug getBugId(Connection con , int id) {
         Bug bug = null;
         try(Statement st = con.createStatement()) {
 
             try(ResultSet rs = st.executeQuery("SELECT * FROM  Bug where id = " + id)){
+
+                while (rs.next()) {
+                    bug = new Bug(rs.getInt("id"),rs.getString("name"),rs.getInt("Price"),rs.getInt("priceflick"),rs.getString("catch"));
+                }
+            }
+
+            return bug;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Bug getBugName(Connection con , String id) {
+        Bug bug = null;
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Bug where name = '" + id + "'")){
+
+                while (rs.next()) {
+                    bug = new Bug(rs.getInt("id"),rs.getString("name"),rs.getInt("Price"),rs.getInt("priceflick"),rs.getString("catch"));
+                }
+            }
+
+            return bug;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Bug> getBugPrice(Connection con , int id) {
+        Bug bug = null;
+        ArrayList<Bug> buss = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Bug where price = " + id)){
+
+                while (rs.next()) {
+                    bug = new Bug(rs.getInt("id"),rs.getString("name"),rs.getInt("Price"),rs.getInt("priceflick"),rs.getString("catch"));
+                    buss.add(bug);
+                }
+            }
+
+            return buss;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Bug> getBugflick(Connection con , int id) {
+        Bug bug = null;
+        ArrayList<Bug> buss = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Bug where priceflick = " + id)){
+
+                while (rs.next()) {
+                    bug = new Bug(rs.getInt("id"),rs.getString("name"),rs.getInt("Price"),rs.getInt("priceflick"),rs.getString("catch"));
+                    buss.add(bug);
+                }
+            }
+
+            return buss;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Bug getBugcatch(Connection con , String id) {
+        Bug bug = null;
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Bug where catch = '" + id + "'")){
 
                 while (rs.next()) {
                     bug = new Bug(rs.getInt("id"),rs.getString("name"),rs.getInt("Price"),rs.getInt("priceflick"),rs.getString("catch"));
@@ -127,6 +299,44 @@ public class DAO {
         }
     }
 
+    public ArrayList<Fossil> getFossilPrice(Connection con , int id) {
+        Fossil fossil = null;
+        ArrayList<Fossil> afos = new ArrayList<>();
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Fossil where price = " + id )){
+
+                while (rs.next()) {
+                    fossil = new Fossil(rs.getString("name"),rs.getInt("price"),rs.getString("Museum"));
+                    afos.add(fossil);
+                }
+            }
+
+            return afos;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Fossil getFossilMuseum(Connection con , String id) {
+        Fossil fossil = null;
+        try(Statement st = con.createStatement()) {
+
+            try(ResultSet rs = st.executeQuery("SELECT * FROM  Fossil where Museum = '" + id +"'")){
+
+                while (rs.next()) {
+                    fossil = new Fossil(rs.getString("name"),rs.getInt("price"),rs.getString("Museum"));
+                }
+            }
+
+            return fossil;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void addFossil(Connection con , Fossil fosi) {
 
         String nam = fosi.getNam();
@@ -135,7 +345,7 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int numFiles = st.executeUpdate("INSERT INTO fossil (name,price,Museum) VALUES ('" +nam + "','"+pric+"','"+muse+"'  )");
+            int numFiles = st.executeUpdate("INSERT INTO fossil (name,price,Museum) VALUES ('" +nam + "','" +pric+ "','"+muse+"'  )");
 
 
 
@@ -208,7 +418,7 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM Bug where name = " + id);
+            int del= st.executeUpdate("DELETE FROM Bug where name = '" + id + "'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -239,11 +449,11 @@ public class DAO {
         }
     }
 
-    public void DeleteBugbyCatch(Connection con , int id) {
+    public void DeleteBugbyCatch(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM Bug where Catch = " + id);
+            int del= st.executeUpdate("DELETE FROM Bug where Catch = '" + id +"'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -266,7 +476,7 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM fish where name = " + id);
+            int del= st.executeUpdate("DELETE FROM fish where name = '" + id +"'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -277,7 +487,7 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM fish where shadow = " + id);
+            int del= st.executeUpdate("DELETE FROM fish where shadow = '" + id +"'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -306,11 +516,11 @@ public class DAO {
         }
     }
 
-    public void DeletefishbyCatch(Connection con , int id) {
+    public void DeletefishbyCatch(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM fish where Catch = " + id);
+            int del= st.executeUpdate("DELETE FROM fish where Catch = '" + id + "'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -322,7 +532,7 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM fossil where name = " + id);
+            int del= st.executeUpdate("DELETE FROM fossil where name = '" + id +"'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -342,12 +552,14 @@ public class DAO {
 
         try(Statement st = con.createStatement()) {
 
-            int del= st.executeUpdate("DELETE FROM fossil where name = " + id);
+            int del= st.executeUpdate("DELETE FROM fossil where name = '" + id + "'");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 
