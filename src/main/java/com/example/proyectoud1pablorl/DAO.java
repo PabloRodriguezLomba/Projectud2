@@ -8,7 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DAO {
-
+    /**
+     *
+     * establece la conexion con la base de datos y retorna un objeto tipo connection.
+     * @return
+     */
     public  Connection connect() {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/ud2projecto?user=root&password=root");
@@ -19,6 +23,11 @@ public class DAO {
         }
     }
 
+    /**
+     * obtiene todos los objetos de una tabla y los retorna en un arraylist
+     * @param con
+     * @return
+     */
     public ArrayList<Fish> getAllFish(Connection con) {
         ArrayList<Fish> allfish = new ArrayList<>();
         try (Statement st = con.createStatement()) {
@@ -37,6 +46,11 @@ public class DAO {
 
     }
 
+    /**
+     * Obtiene todos los objetos de una tabla y los retorna en un arraylist
+     * @param con
+     * @return
+     */
     public ArrayList<Bug> getAllBug(Connection con) {
         ArrayList<Bug> allBug = new ArrayList<>();
         try (Statement st = con.createStatement()) {
@@ -55,6 +69,11 @@ public class DAO {
 
     }
 
+    /**
+     * Obtiene todos los objetos de una tabla y los retorna en un arraylist
+     * @param con
+     * @return
+     */
     public ArrayList<Fossil> getAllFossil(Connection con) {
         ArrayList<Fossil> allFossil = new ArrayList<>();
         try (Statement st = con.createStatement()) {
@@ -73,6 +92,12 @@ public class DAO {
 
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Fish getFishId(Connection con , int id) {
         Fish fish = null;
         try(Statement st = con.createStatement()) {
@@ -91,6 +116,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Fish getFishname(Connection con , String id) {
         Fish fish = null;
         try(Statement st = con.createStatement()) {
@@ -109,6 +140,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Fish> getFishshadow(Connection con , String id) {
         Fish fish = null;
         ArrayList<Fish> afish = new ArrayList<>();
@@ -129,6 +166,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Fish> getFishPrice(Connection con , int id) {
         Fish fish = null;
         ArrayList<Fish> afish = new ArrayList<>();
@@ -149,6 +192,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Fish> getFishPricecj(Connection con , int id) {
         Fish fish = null;
         ArrayList<Fish> afish = new ArrayList<>();
@@ -169,6 +218,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Fish getFishscatch(Connection con , String id) {
         Fish fish = null;
         try(Statement st = con.createStatement()) {
@@ -187,6 +242,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Bug getBugId(Connection con , int id) {
         Bug bug = null;
         try(Statement st = con.createStatement()) {
@@ -205,6 +266,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Bug getBugName(Connection con , String id) {
         Bug bug = null;
         try(Statement st = con.createStatement()) {
@@ -223,6 +290,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Bug> getBugPrice(Connection con , int id) {
         Bug bug = null;
         ArrayList<Bug> buss = new ArrayList<>();
@@ -243,6 +316,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Bug> getBugflick(Connection con , int id) {
         Bug bug = null;
         ArrayList<Bug> buss = new ArrayList<>();
@@ -263,6 +342,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Bug getBugcatch(Connection con , String id) {
         Bug bug = null;
         try(Statement st = con.createStatement()) {
@@ -281,6 +366,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Fossil getFossilId(Connection con , String id) {
         Fossil fossil = null;
         try(Statement st = con.createStatement()) {
@@ -299,6 +390,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila o filas de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de Arraylist
+     * @param con
+     * @param id
+     * @return
+     */
     public ArrayList<Fossil> getFossilPrice(Connection con , int id) {
         Fossil fossil = null;
         ArrayList<Fossil> afos = new ArrayList<>();
@@ -319,6 +416,12 @@ public class DAO {
         }
     }
 
+    /**
+     * Obtiene una fila de la tabla mediante un parametro, busca este parametro en una columna especifica y si lo encuentra te devuelve la fila en forma de objeto
+     * @param con
+     * @param id
+     * @return
+     */
     public Fossil getFossilMuseum(Connection con , String id) {
         Fossil fossil = null;
         try(Statement st = con.createStatement()) {
@@ -337,6 +440,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Añade una fila a la table en este caso fossil , recibe un parametro de donde saca los datos que introduce en la base de datos
+     * @param con
+     * @param fosi
+     */
     public void addFossil(Connection con , Fossil fosi) {
 
         String nam = fosi.getNam();
@@ -358,6 +466,11 @@ public class DAO {
 
     }
 
+    /**
+     * Añade una fila a la table en este caso fish , recibe un parametro de donde saca los datos que introduce en la base de datos
+     * @param con
+     * @param fish
+     */
     public void addFish(Connection con , Fish fish) {
 
         int id = fish.getI();
@@ -379,7 +492,9 @@ public class DAO {
             throw new RuntimeException(e);
         }
 
-
+        /**
+         * Añade una fila a la table en este caso Bug , recibe un parametro de donde saca los datos que introduce en la base de datos
+         */
     }    public void addBug(Connection con , Bug bug) {
 
         int id = bug.getI();
@@ -403,6 +518,11 @@ public class DAO {
 
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteBugbyId(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -414,6 +534,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteBugbyname(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -426,7 +551,11 @@ public class DAO {
     }
 
 
-
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteBugbyPrice(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -438,6 +567,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteBugbyPriceflick(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -449,6 +583,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteBugbyCatch(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -460,7 +599,11 @@ public class DAO {
         }
     }
 
-
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeleteFishbyId(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -472,6 +615,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void Deletefishbyname(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -483,6 +631,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void Deletefishbyshadow(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -494,6 +647,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeletefishbyPrice(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -505,6 +663,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeletefishbyPricecj(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -516,6 +679,11 @@ public class DAO {
         }
     }
 
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeletefishbyCatch(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -527,7 +695,11 @@ public class DAO {
         }
     }
 
-
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void Deletefossilbyname(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {
@@ -538,6 +710,12 @@ public class DAO {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void Deletefossilbyprice(Connection con , int id) {
 
         try(Statement st = con.createStatement()) {
@@ -548,6 +726,12 @@ public class DAO {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Elimina una fila o filas de la base de datos, obtiene un parametro que busca en una columna especifica si encuentra el dato elimina la fila que lo contiene
+     * @param con
+     * @param id
+     */
     public void DeletefossilbyMuseum(Connection con , String id) {
 
         try(Statement st = con.createStatement()) {

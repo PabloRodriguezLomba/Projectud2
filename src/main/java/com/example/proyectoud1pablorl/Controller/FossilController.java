@@ -1,6 +1,7 @@
 package com.example.proyectoud1pablorl.Controller;
 
 import com.example.proyectoud1pablorl.DAO;
+import com.example.proyectoud1pablorl.Object.Bug;
 import com.example.proyectoud1pablorl.Object.Fossil;
 import com.example.proyectoud1pablorl.Object.FossilItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -12,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -123,7 +121,7 @@ public class FossilController implements Initializable {
     }
 
     /**
-     * Obtiene un fosil de la api con un nombre que el usuario introduce despues escribe la informacion en la tabla
+     * Obtiene un fosil de la base de datos con un nombre o precio o museum phrase  que el usuario introduce, despues escribe la informacion en la tabla
      * @param event
      */
     public void getOneFossil(ActionEvent event) {
@@ -186,6 +184,9 @@ public class FossilController implements Initializable {
 
     }
 
+    /**
+     * llama a uno de los metodos dependiendo del value de la combo box , todos los metodos eliminan filas de la base de datos
+     */
     public void deletefossil() {
         if (combofossil.getValue() == null) {
 
@@ -201,6 +202,9 @@ public class FossilController implements Initializable {
         }
     }
 
+    /**
+     *  con los datos que introduces en los campos de texto crea un objeto y lo añade a la base de datos utilizando un metodo del dao
+     */
     public void addfossil() {
         if(adddName.getText().isEmpty() || adddPrice.getText().isEmpty() || adddMuseum.getText().isEmpty()) {
 
@@ -262,13 +266,9 @@ public class FossilController implements Initializable {
 
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
-                        URL ur = new URL("http://acnhapi.com/v1a/fossils/");
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
-                            fil.write(sc.nextLine());
+                       TableFossil.getItems();
+                        for (int i = 0; i < TableFossil.getItems().size(); i++) {
+                            fil.write(TableFossil.getItems().get(i).toString());
                         }
 
                     }
@@ -276,18 +276,13 @@ public class FossilController implements Initializable {
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
                         String id = TableFossil.getItems().get(0).getNam();
-                        URL ur = new URL("http://acnhapi.com/v1/fossils/" + id);
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
 
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
+                        Fossil fos = dao.getFossilId(con,id);
 
-                            fil.write(sc.nextLine());
+                            fil.write(fos.toString());
 
 
-                        }
+
 
                     }
                 }

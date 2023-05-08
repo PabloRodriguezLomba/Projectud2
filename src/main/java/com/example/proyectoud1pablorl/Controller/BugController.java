@@ -109,7 +109,7 @@ public class BugController implements Initializable {
     }
 
     /**
-     * inicializa las columnas de la tabla , añade los filtros para el fileChooser y añade los objetos las combobox
+     * inicializa las columnas de la tabla,crea una conexion con la base de datos , añade los filtros para el fileChooser y añade los objetos las combobox
      * @param url
      * @param resourceBundle
      */
@@ -117,7 +117,7 @@ public class BugController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         con = dao.connect();
         fileChooser.setInitialDirectory(new File("."));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"));
         id.setCellValueFactory(new PropertyValueFactory<>("i"));
         Name.setCellValueFactory(new PropertyValueFactory<>("Nam"));
         Price.setCellValueFactory(new PropertyValueFactory<>("Pric"));
@@ -149,7 +149,10 @@ public class BugController implements Initializable {
     }
 
 
-
+    /**
+     * Dependiendo del value de la combobox ejecuta un metodo diferente
+     * @param event
+     */
     public void getBugbyColumn(ActionEvent event) {
 
 
@@ -171,7 +174,7 @@ public class BugController implements Initializable {
     }
 
     /**
-     * hace una llamada en la api para obtener un bicho utilizando la id que escribes en la textView
+     * hace una llamada en la base de datos para obtener un bicho utilizando la id que escribes en la textView
      * @param
      */
     public void getBugById() {
@@ -218,6 +221,9 @@ public class BugController implements Initializable {
 
     }
 
+    /**
+     * hace una llamada en la base de datos para obtener un bicho utilizando el nombre que escribes en la textView
+     */
     public void getBugbyname() {
         String id = "a";
         if (!textForBug.getText().isEmpty()) {
@@ -228,6 +234,9 @@ public class BugController implements Initializable {
         tableBug.getItems().add(bug);
     }
 
+    /**
+     * hace una llamada en la base de datos para obtener un bicho utilizando el precio que escribes en la textView
+     */
     public void getBugByprice() {
 
         int responseCode;
@@ -272,6 +281,9 @@ public class BugController implements Initializable {
 
     }
 
+    /**
+     * hace una llamada en la base de datos para obtener un bicho utilizando la catch phrase que escribes en la textView
+     */
     public void getBugbycatch() {
         String id = "a";
         if (!textForBug.getText().isEmpty()) {
@@ -282,6 +294,9 @@ public class BugController implements Initializable {
         tableBug.getItems().add(bug);
     }
 
+    /**
+     * hace una llamada en la base de datos para obtener un bicho utilizando el price flick que escribes en la textView
+     */
     public void getBugBypriceflick() {
 
         int responseCode;
@@ -327,7 +342,9 @@ public class BugController implements Initializable {
     }
 
 
-
+    /**
+     * con los datos que introduces en los campos de texto crea un objeto y lo añade a la base de datos utilizando un metodo del dao
+     */
     public void addBug() {
 
 
@@ -438,7 +455,9 @@ public class BugController implements Initializable {
     }
 
 
-
+    /**
+     * llama a metodos diferentes dependiendo del value de la combobox , todos los metodos que llama sirven para eliminar de la base de datos
+     */
 
     public void deletebug() {
 

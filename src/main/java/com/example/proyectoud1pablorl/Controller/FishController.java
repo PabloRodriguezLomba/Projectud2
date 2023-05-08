@@ -1,6 +1,7 @@
 package com.example.proyectoud1pablorl.Controller;
 
 import com.example.proyectoud1pablorl.DAO;
+import com.example.proyectoud1pablorl.Object.Bug;
 import com.example.proyectoud1pablorl.Object.Fish;
 import com.example.proyectoud1pablorl.Object.FishItem;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -120,7 +121,7 @@ public class FishController implements Initializable {
     }
 
     /**
-     * inicializa las columnas de la tabla asignandoles valor y añade los filtros al fileChooser
+     * inicializa las columnas de la tabla asignandoles valor,estableze conexion con la base de datos,añade los items de la combobox y añade los filtros al fileChooser
      * @param url
      * @param resourceBundle
      */
@@ -128,7 +129,7 @@ public class FishController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         con = dao.connect();
         fileChooser.setInitialDirectory(new File("."));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"),new FileChooser.ExtensionFilter("Json","*.JSON"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file","*.txt"));
         idfish.setCellValueFactory(new PropertyValueFactory<>("i"));
         fishname.setCellValueFactory(new PropertyValueFactory<>("Nam"));
         fishshadow.setCellValueFactory(new PropertyValueFactory<>("shado"));
@@ -176,7 +177,7 @@ public class FishController implements Initializable {
 
 
     /**
-     * Obtine la informacion de un pez desde la api utilizando una id que introduce el usuario
+     * Obtine la informacion de un pez desde la base de datos utilizando una id que introduce el usuario
      */
     public void getFishbyid() {
 
@@ -220,6 +221,9 @@ public class FishController implements Initializable {
 
     }
 
+    /**
+     * Obtine la informacion de un pez desde la base de datos utilizando el nombre que introduce el usuario
+     */
     public void getfishbyname() {
         String id = "";
         if(!textfish.getText().isEmpty()) {
@@ -230,6 +234,9 @@ public class FishController implements Initializable {
         TableFish.getItems().add(fish1);
     }
 
+    /**
+     * Obtine la informacion de un pez desde la base de datos utilizando la shadow que introduce el usuario
+     */
     public void getfishbyshadow() {
         String id = "";
         if(!textfish.getText().isEmpty()) {
@@ -240,6 +247,9 @@ public class FishController implements Initializable {
         TableFish.getItems().addAll(fish1);
     }
 
+    /**
+     * Obtine la informacion de un pez desde la base de datos utilizando la catch phrase que introduce el usuario
+     */
     public void getfishbyncatch() {
         String id = "";
         if(!textfish.getText().isEmpty()) {
@@ -250,6 +260,9 @@ public class FishController implements Initializable {
         TableFish.getItems().add(fish1);
     }
 
+    /**
+     * Obtine la informacion de un pez desde la base de datos utilizando el precio que introduce el usuario
+     */
     public void getFishbyPrice() {
 
         int responseCode;
@@ -292,6 +305,9 @@ public class FishController implements Initializable {
 
     }
 
+    /**
+     * Obtine la informacion de un pez desde la base de datos utilizando precio cj que introduce el usuario
+     */
     public void getFishbyPricecj() {
 
         int responseCode;
@@ -334,6 +350,9 @@ public class FishController implements Initializable {
 
     }
 
+    /**
+     * llama a uno de los metodos dependiendo del value de la combo box , todos los metodos eliminan filas de la base de datos
+     */
     public void deleteFish() {
         if (combofish.getValue() == null) {
 
@@ -354,7 +373,9 @@ public class FishController implements Initializable {
         }
     }
 
-
+    /**
+     * con los datos que introduces en los campos de texto crea un objeto y lo añade a la base de datos utilizando un metodo del dao
+     */
     public void addFish() {
 
         if (adId.getText().isEmpty() || adName.getText().isEmpty() || adshadow.getText().isEmpty() || adprice.getText().isEmpty() || adcj.getText().isEmpty() || adcatch.getText().isEmpty()) {
@@ -474,13 +495,9 @@ public class FishController implements Initializable {
 
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
-                        URL ur = new URL("http://acnhapi.com/v1a/fish/");
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
-                            fil.write(sc.nextLine());
+
+                        for (int i = 0;i < TableFish.getItems().size();i++) {
+                            fil.write(TableFish.getItems().get(i).toString());
                         }
 
                     }
@@ -488,18 +505,15 @@ public class FishController implements Initializable {
                     try (var fil = Files.newBufferedWriter(Paths.get(file.getAbsolutePath()))) {
 
                         int id = TableFish.getItems().get(0).getI();
-                        URL ur = new URL("http://acnhapi.com/v1/fish/" + id);
-                        HttpURLConnection conn = (HttpURLConnection) ur.openConnection();
-                        conn.setRequestMethod("GET");
-                        conn.connect();
-
-                        Scanner sc = new Scanner(ur.openStream());
-                        while (sc.hasNext()) {
-
-                            fil.write(sc.nextLine());
 
 
-                        }
+                        Fish fi = dao.getFishId(con , id);
+
+
+                            fil.write(fi.toString());
+
+
+
 
                     }
                 }
