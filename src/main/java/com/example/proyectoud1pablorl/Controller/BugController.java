@@ -109,7 +109,7 @@ public class BugController implements Initializable {
     }
 
     /**
-     * inicializa las columnas de la tabla y añadel los filtros para el fileChooser
+     * inicializa las columnas de la tabla , añade los filtros para el fileChooser y añade los objetos las combobox
      * @param url
      * @param resourceBundle
      */
